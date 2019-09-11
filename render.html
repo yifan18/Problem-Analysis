@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>浏览器渲染测试</title>
+
+    <script>
+      function cssloaded() {
+        console.log("css load end");
+      }
+    </script>
+  </head>
+  <body>
+    用工具限制下资源下载速度！！
+    <script>
+      console.log("start download css");
+    </script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css"
+      onload="cssloaded()"
+    />
+    <div style="width: 100px;height: 100px; background: pink" id="box"></div>
+    <script>
+      console.log("css download end");
+      console.log("start js run.");
+      window.a = Array.from({ length: 1000000 }).map((r, i) => {
+        document.getElementById("box").innerHTML = i;
+      });
+    </script>
+    <div>1111</div>
+    <script>
+      console.log("end");
+    </script>
+  </body>
+  <script>
+    console.log("start js run after body");
+    window.a = Array.from({ length: 1000000 }).map((r, i) => {
+      document.getElementById("box").innerHTML = i;
+    });
+    const div = document.createElement("div");
+    div.textContent = "2222";
+    document.body.appendChild(div);
+    console.log("js end");
+  </script>
+</html>
